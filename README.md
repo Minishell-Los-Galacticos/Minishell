@@ -18,30 +18,6 @@ Minishell - Bash
                          TOTAL FAILED AND PASSED CASES:
                                      ❌ 8
                                      ✅ 2566
-
-## POR HACER:
-
-### MIKEL:
-
-### DAVID:
-- Espacios entre expansiones pegadas cuando no exite la variable `echo $USER$TESTNOTFOUND$HOME$WTF$PWD` o `/bin/echo test"$MISSING"`
-- wildcards complejas in the middle no son 100% perfectas-> `touch minishelxxxl; /usr/bin/printf "%s\n" minishe*l | sort`
-
-#### Errores:
-- En is_double_quote -> no se pueden hacer dos expansiones seguidas cuando hay `\` antes del `$` funciona para expansiones individuales pero la flag seteada evita las demas expansiones
-- export no acepta todas las posibilidades de entrada por la menera en la que tokenizamos, tampoco export esta remplazando su variable de la misma manera porque a veces una variabel la entraga en varios argumentos.
-- Al expandir una variable que tenga () deberia volverse a tokenizar, sucede que cuando tenemos una subshell en una variable y la expande no ha pasado por su proceso de tokenizacion y no es capaz de realizar el comando.
-- Deberia rehacerse todo la tokenizacion y expansion para que se consiga que cada token solo tenga una sola funcion argumento, operador(varios), Filename, heredoc comando o builtin, solo esas funciones. Nada de tokens de expansion deben marcarse antes con un bool pero no como un tipo y asi todo sera mas sencillo de gestionar.
-- tokenizamos los saltos de linea como ";" cuando bash depende del contexto lo hace de otra manera, en archivos si en linea de comando no
-- El manejo de bool quotes para los tokens deberia mejorar mas que solo revisar si i - 1 es DOUBLE_QUOTE. 1quote 2quote 3hola ->hola:true
-- funciones prohibidas que usamos:
-localtime
-difftime
-mkdir
-gethostname
-getpid
-ic_readline
-
 ## ARQUITECTURA GENERAL
 
 ```
@@ -109,11 +85,3 @@ ic_readline
                 │ Vuelve al MAIN LOOP         │
                 └─────────────────────────────┘
 ```
-
-### OPCIÓN PARA FLUJO DE TRABAJO:
-
-1. Si hay token de expansión → Se intenta expandir. Si no se puede, no importa, se ignora y no se intercambia por "".
-2. Entonces se aplica una función de juntar (esto en caso de que haya algún NO SPACE token, si no hay este token, no se junta nada).
-3. Armamos el árbol
-4. Antes de ejecutar si hay token de expansión → Se intenta expandir (Ahora sí de verdad, con "" y todo el rollo) y juntar obligatoriamente (si hay algo que juntar).
-5. Ejecutamos
