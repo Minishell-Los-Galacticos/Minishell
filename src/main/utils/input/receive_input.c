@@ -6,11 +6,11 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 21:42:00 by migarrid          #+#    #+#             */
-/*   Updated: 2025/11/25 17:13:08 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:16:38 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../../../inc/minishell.h"
+#include "../../../../inc/minishell.h"
 
 /*
 	Genera y muestra el prompt interactivo.

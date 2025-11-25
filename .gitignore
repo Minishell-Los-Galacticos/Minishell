@@ -15,6 +15,7 @@ minishell
 !history_minishell.txt
 
 # Readline post config
+lib/isocline
 lib/readline/Makefile
 lib/readline/config.h
 lib/readline/config.log
