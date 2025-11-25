@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 21:42:44 by migarrid          #+#    #+#             */
-/*   Updated: 2025/11/24 22:40:36 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:14:18 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	exit_error(t_shell *data, const char *error, int exit_code, ...)
 int	exit_succes(t_shell *data, char *msg, int exit_code)
 {
 	if (msg)
-# ifdef MAIN
+# if defined MAIN || defined CORRECTION
 	{
 		print_session_end(data->extras.session_start);
 		if (data->extras.user_name)

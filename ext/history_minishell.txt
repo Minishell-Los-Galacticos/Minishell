@@ -29,6 +29,8 @@ s
 sc
 ssl
 slc
-ls
-clear
 /bin/echo ""$?""
+clear
+ls
+<< LM
+echo $?

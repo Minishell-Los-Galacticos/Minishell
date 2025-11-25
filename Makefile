@@ -6,7 +6,7 @@
 #    By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 17:55:34 by migarrid          #+#    #+#              #
-#    Updated: 2025/11/25 03:04:38 by migarrid         ###   ########.fr        #
+#    Updated: 2025/11/25 15:04:13 by migarrid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ NORM				= norminette
 CMAKE				= cmake
 MV					= mv
 CD					= cd
+GIT					= git
+CURL				= curl
 
 # **************************************************************************** #
 #                              Directories                                     #
@@ -48,6 +50,7 @@ OBJ_DIR				= obj
 SRC_DIR				= src
 LIBFT_DIR			= $(LIB_DIR)/libft_plus
 ISOCLINE_DIR		= $(LIB_DIR)/isocline
+ISOCLINE_REPO		= https://github.com/LordMikkel/isocline.git
 
 # **************************************************************************** #
 #                      File Paths and Dependencies                             #
@@ -289,15 +292,24 @@ $(NAME): $(OBJS) $(LIBFT_A) $(HISTORY_A) $(ISOCLINE_A)
 $(LIBFT_A): FORCE $(LIBFT_MAKEFILE) $(LIBFT_H)
 	@$(MAKE) -s -C $(LIBFT_DIR)
 
+# Download and build isocline library
+$(ISOCLINE_DIR):
+	@$(PRINT) "Configuring ${BLUE}project library${DEFAULT}...\n"
+	@$(GIT) clone $(ISOCLINE_REPO) $(ISOCLINE_DIR) > /dev/null 2>&1
+
 # Rebuild isocline library
-$(ISOCLINE_A):
+$(ISOCLINE_A): | $(ISOCLINE_DIR)
 	@$(PRINT) "Compiling $(BLUE)project library$(DEFAULT)...\n"
 	@$(MKDIR) $(ISOCLINE_DIR)/build/release
 	@$(CD) $(ISOCLINE_DIR)/build/release && $(CMAKE) ../.. > /dev/null 2>&1 && $(CMAKE) --build . > /dev/null 2>&1
 
 # Test minishell rapidly
 test: fclean
-	@$(MAKE) --no-print-directory DMAIN=
+	@$(MAKE) --no-print-directory DMAIN="-D MSTEST"
+
+# Test minishell rapidly
+eval: fclean
+	@$(MAKE) --no-print-directory DMAIN="-D CORRECTION"
 
 # Test leaks in minishell
 leaks:
@@ -323,6 +335,7 @@ clean:
 fclean: clean
 	@$(MAKE) fclean -s -C $(LIBFT_DIR)
 	@$(RM) $(NAME)
+	@$(RM) $(ISOCLINE_DIR)
 	@$(PRINT) "${CLEAR}${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: Project cleaned ${GREEN}successfully${RESET}.${GREY}\n${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}"
 
 # Rebuild everything

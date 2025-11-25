@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 22:31:21 by migarrid          #+#    #+#             */
-/*   Updated: 2025/11/24 21:47:06 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:13:32 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 void	init_minishell(t_shell *data, int ac, char **av, char **envp)
 {
-	setup_signals_interactive(data);
 	init_data(data, envp);
 	init_arg(data, ac, av);
-# ifdef MAIN
+	setup_signals_interactive(data);
+# if defined MAIN || defined CORRECTION
 	print_session_start(data, data->extras.session_start,
 		&data->extras.user_name);
 # endif

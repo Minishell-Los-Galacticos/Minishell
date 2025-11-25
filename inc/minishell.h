@@ -6,7 +6,7 @@
 /*   By: migarrid <migarrid@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 22:31:39 by migarrid          #+#    #+#             */
-/*   Updated: 2025/11/24 21:16:19 by migarrid         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:12:53 by migarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	setup_signals_noninteractive(t_shell *data);
 void	setup_signals_child(t_shell *data);
 void	setup_signals_heredoc(t_shell *data);
 void	handle_sigint_interative(int sig);
+void	handle_sigint_readline(int sig);
 void	handle_sigint_heredoc(int sig);
 int		check_signal_node_heredoc(t_node *node);
 int		check_signals(t_shell *data, t_redir *redir, char *line);
